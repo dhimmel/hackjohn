@@ -1,6 +1,9 @@
 # Bot to monitor for southbound permit spaces on the John Muir Trail
 
-
+This repository contains a Python script for monitoring Yosemite's [Donohue Exit Quota and Trailhead Space Available](https://www.nps.gov/yose/planyourvisit/fulltrailheads.htm) online table.
+Vacancies in this table indicate the availability of a southbound John Muir Trail permit,
+available for immediate reservation by calling the Yosemite Wilderness Permit Reservations at [1-209-372-0740](tel:1-209-372-0740).
+This strategy enables securing a soutbound JMT permit after the lotery drawing for a given date.
 
 ## Usage
 
