@@ -3,7 +3,9 @@
 This repository contains a Python script for monitoring Yosemite's [Donohue Exit Quota and Trailhead Space Available](https://www.nps.gov/yose/planyourvisit/fulltrailheads.htm) online table.
 Vacancies in this table indicate the availability of a southbound John Muir Trail permit,
 available for immediate reservation by calling the Yosemite Wilderness Permit Reservations at [1-209-372-0740](tel:1-209-372-0740).
-This strategy enables securing a soutbound JMT permit after the lotery drawing for a given date.
+This strategy enables securing a soutbound JMT permit after the lottery drawing for a given date.
+
+**Learn more about using hackjohn and its history of success in the blog post titled [Introducing the hackjohn bot for southbound John Muir Trail permits](https://busy.org/@dhimmel/introducing-the-hackjohn-bot-for-southbound-john-muir-trail-permits).**
 
 ## Usage
 
