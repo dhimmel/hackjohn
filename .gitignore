@@ -1,3 +1,6 @@
+# hackjohn files
+hackjohn.log
+
 # Python
 __pycache__/
 *.pyc
