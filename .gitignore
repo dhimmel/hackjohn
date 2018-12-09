@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Misc temporary files
+*.bak
+
+# Operating system specific files
+
+## Linux
+*~
+.Trash-*
+
+## macOS
+.DS_Store
+._*
+.Trashes
+
+## Windows
+Thumbs.db
+[Dd]esktop.ini
+
+# Text editors
+.vscode
