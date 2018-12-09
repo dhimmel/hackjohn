@@ -9,9 +9,6 @@
 # Accoding to the reservations office, the table is usually updated around 11 AM pacific time and spaces are usually snatched within ten minutes. Call the reservation number if there's availability at 209-372-0740.
 #
 # Written by Daniel Himmelstein
-#
-# Create environment with (bug in pandas 0.23 in read_html)
-# conda create --name=hackjohn python=3.6 pandas=0.22 requests html5lib beautifulsoup4
 # In[1]:
 
 
