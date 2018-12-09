@@ -1,10 +1,16 @@
 # Bot to monitor for southbound permit spaces on the John Muir Trail
 
-## Execution
+## Usage
+
+Modify [`hackjohn.py`](hackjohn.py) with the parameters of your permit search.
+To receive [Telegram](https://telegram.org/) notfications, set your `token` for the [MiddleManBot](https://github.com/n1try/telegram-middleman-bot).
+Then simply run the hackjohn Python script in the `hackjohn` conda environment (described below) with:
 
 ```
 python hackjohn.py
 ```
+
+The script with print the table of available spaces via stdout.
 
 ## Environment
 
