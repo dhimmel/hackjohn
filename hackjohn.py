@@ -1,21 +1,19 @@
-#!/home/dhimmel/anaconda3/envs/hackjohn/bin/python
+"""
+Bot to monitor for southbound permit spaces on the John Muir Trail
+Written by Daniel Himmelstein
 
-# coding: utf-8
+Check whether any spaces are available for the
+"Donohue Exit Quota and Trailhead Space Available".
+This is for people hiking the John Muir Trail starting in Yosemite.
 
-# # hackjohn: hacking the john muir trail
-#
-# Check whether any spaces are available for the "Donohue Exit Quota and Trailhead Space Available". This is for people hiking the John Muir Trail starting in Yosemite.
-#
-# Accoding to the reservations office, the table is usually updated around 11 AM pacific time and spaces are usually snatched within ten minutes. Call the reservation number if there's availability at 209-372-0740.
-#
-# Written by Daniel Himmelstein
-# In[1]:
-
+Accoding to the reservations office,
+the table is usually updated around 11 AM pacific time
+and spaces are usually snatched within ten minutes.
+Call the reservation number if there's availability at 209-372-0740.
+"""
 
 import requests
 import pandas
-
-# In[2]:
 
 
 # Mininum number of available spaces
@@ -33,9 +31,6 @@ exclude = [
 # Dates you'd like to start on
 dates = pandas.date_range(start='2018-08-30', end='2018-08-30', freq='D')
 dates
-
-
-# In[3]:
 
 
 def get_trailhead_df():
@@ -65,21 +60,12 @@ def get_trailhead_df():
     return response, trailhead_df
 
 
-# In[4]:
-
-
 yose_response, trailhead_df = get_trailhead_df()
 trailhead_df.head(2)
 
 
-# In[5]:
-
-
 space_df = trailhead_df.query("Date in @dates and Spaces >= @spaces and Trailhead not in @exclude")
 space_df
-
-
-# In[6]:
 
 
 space_str = space_df.to_csv(sep='\t', index=False)
@@ -96,15 +82,10 @@ print(text)
 #
 # Uses https://github.com/n1try/telegram-middleman-bot
 
-# In[7]:
-
 
 # Get token from messaging /start to @MiddleManBot on Telegram
 # https://telegram.me/MiddleManBot
 token = 'replace-with-private-telegram-middlemanbot-token'
-
-
-# In[8]:
 
 
 hostname = 'https://middleman.ferdinand-muetsch.de'
