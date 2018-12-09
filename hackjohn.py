@@ -28,8 +28,8 @@ exclude = [
     'Lyell Canyon',
 ]
 
-# Dates you'd like to start on
-dates = pandas.date_range(start='2018-08-30', end='2018-08-30', freq='D')
+# Dates you'd like to start on (inclusive of end date)
+dates = pandas.date_range(start='2018-08-30', end='2018-10-05', freq='D')
 dates
 
 
@@ -64,34 +64,32 @@ def get_trailhead_df():
 
     return response, trailhead_df
 
-
 yose_response, trailhead_df = get_trailhead_df()
 trailhead_df.head(2)
-
 
 space_df = trailhead_df.query("Date in @dates and Spaces >= @spaces and Trailhead not in @exclude")
 space_df
 
-
-space_str = space_df.to_csv(sep='\t', index=False)
+space_str = space_df.to_string(index=False)
 text = f'''Spaces available as of {yose_response.headers['Date']}
 
 {space_str}
+
 According to {yose_response.url}
 Yosemite Reservations: 209-372-0740 (Monday–Friday 9:00am–4:30pm)
 '''
 print(text)
 
 
-# ## Nofications using MiddlemanBot
-#
+## Nofications using MiddlemanBot
 # Uses https://github.com/n1try/telegram-middleman-bot
 
+# Set enable_middleman to True to receive telegram notification
+enable_middleman = False
 
 # Get token from messaging /start to @MiddleManBot on Telegram
 # https://telegram.me/MiddleManBot
 token = 'replace-with-private-telegram-middlemanbot-token'
-
 
 hostname = 'https://middleman.ferdinand-muetsch.de'
 mmb_url = hostname + '/api/messages'
@@ -100,7 +98,7 @@ payload = {
     'text': text,
     'origin': 'hackjohn',
 }
-if not space_df.empty:
+if enable_middleman and not space_df.empty:
     mmb_response = requests.post(mmb_url, json=payload)
     print('middleman status code', mmb_response.status_code)
     print(mmb_response.text)
