@@ -14,7 +14,7 @@ Call the reservation number if there's availability at 209-372-0740.
 
 import requests
 import pandas
-
+from pkg_resources import parse_version
 
 # Mininum number of available spaces
 spaces = 2
@@ -37,11 +37,16 @@ def get_trailhead_df():
     """
     Convert the current "Donohue Exit Quota and Trailhead Space Available" HTML table
     to a pandas.DataFrame.
-    Does not work in Pandas v0.23 (https://github.com/pandas-dev/pandas/issues/22135)
     """
+    pandas_version = parse_version(pandas.__version__)._version.release
+    if pandas_version[:2] == (0, 23):
+        # read_html malfunctions in pandas v0.23
+        # https://github.com/pandas-dev/pandas/issues/22135
+        raise ImportError('pandas v0.23 is not supported due to https://git.io/fp9Zn')
+
     url = 'https://www.nps.gov/yose/planyourvisit/fulltrailheads.htm'
     response = requests.get(url)
-    assert response.ok
+    response.raise_for_status()
 
     wide_df, = pandas.read_html(
         response.text,
