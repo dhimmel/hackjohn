@@ -21,8 +21,27 @@ The script with print the table of available spaces via stdout.
 
 ## Environment
 
-This repository uses [conda](http://conda.pydata.org/docs/) to manage its environment as specified in [`environment.yml`](environment.yml).
-Install the environment with:
+The environment can be installed using _either_ Virtual Environments or Conda.
+
+### Virtual Environment
+
+To insall a [virtual environment](https://docs.python.org/3/tutorial/venv.html), run the following:
+
+```
+# Create a virtual environment in the env directory
+python3 -m venv env
+
+# Activate the virtual environment
+source env/bin/activate
+
+# Install the required dependencies into the virtual env
+pip install --requirement requirements.txt
+```
+
+### Conda
+
+The [conda](http://conda.pydata.org/docs/) environment for this repository is specified in [`environment.yml`](environment.yml).
+Install this environment with:
 
 ```sh
 conda env create --file environment.yml

@@ -4,6 +4,7 @@ hackjohn.log
 # Python
 __pycache__/
 *.pyc
+/env
 
 # Jupyter Notebook
 .ipynb_checkpoints

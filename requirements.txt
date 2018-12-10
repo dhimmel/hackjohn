@@ -1,0 +1,6 @@
+beautifulsoup4==4.6.3
+html5lib==1.0.1
+numpy==1.15.4
+pandas==0.22.0
+python-dateutil==2.7.5
+requests==2.20.1
