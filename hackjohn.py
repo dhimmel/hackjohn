@@ -6,11 +6,13 @@ Check whether any spaces are available for the
 "Donohue Exit Quota and Trailhead Space Available".
 This is for people hiking the John Muir Trail starting in Yosemite.
 
-Accoding to the reservations office,
+According to the reservations office,
 the table is usually updated around 11 AM pacific time
 and spaces are usually snatched within ten minutes.
 Call the reservation number if there's availability at 209-372-0740.
 """
+
+import re
 
 import requests
 import pandas
@@ -31,6 +33,9 @@ exclude = [
 # Dates you'd like to start on (inclusive of end date)
 dates = pandas.date_range(start='2018-08-30', end='2018-10-05', freq='D')
 dates
+
+# If the Report Date is before this day, suppress Telegram notification
+min_report_date = '2019-01-01'
 
 
 def get_trailhead_df():
@@ -67,11 +72,21 @@ def get_trailhead_df():
 yose_response, trailhead_df = get_trailhead_df()
 trailhead_df.head(2)
 
+# Extract report date. https://github.com/dhimmel/hackjohn/issues/1
+try:
+    match = re.search(r'Report Date: ([0-9/]+)', yose_response.text)
+    report_date = match.group(1)
+    report_date = pandas.to_datetime(report_date, dayfirst=False)
+except Exception:
+    report_date = yose_response.headers['Date']
+    report_date = pandas.to_datetime(report_date, utc=True)
+report_date = report_date.date().isoformat()
+
 space_df = trailhead_df.query("Date in @dates and Spaces >= @spaces and Trailhead not in @exclude")
 space_df
 
 space_str = space_df.to_string(index=False)
-text = f'''Spaces available as of {yose_response.headers['Date']}
+text = f'''Spaces available as of {report_date}
 
 {space_str}
 
@@ -98,7 +113,7 @@ payload = {
     'text': text,
     'origin': 'hackjohn',
 }
-if enable_middleman and not space_df.empty:
+if enable_middleman and not space_df.empty and min_report_date <= report_date:
     mmb_response = requests.post(mmb_url, json=payload)
     print('middleman status code', mmb_response.status_code)
     print(mmb_response.text)
