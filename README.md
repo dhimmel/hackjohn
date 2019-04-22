@@ -5,7 +5,7 @@ Vacancies in this table indicate the availability of a southbound John Muir Trai
 available for immediate reservation by calling the Yosemite Wilderness Permit Reservations at [1-209-372-0740](tel:1-209-372-0740).
 This strategy enables securing a soutbound JMT permit after the lottery drawing for a given date.
 
-**Learn more about using hackjohn and its history of success in the blog post titled [Introducing the hackjohn bot for southbound John Muir Trail permits](https://busy.org/@dhimmel/introducing-the-hackjohn-bot-for-southbound-john-muir-trail-permits).**
+**Learn more about using hackjohn** and its history of success in the blog post titled [**Introducing the hackjohn bot for southbound John Muir Trail permits**](https://busy.org/@dhimmel/introducing-the-hackjohn-bot-for-southbound-john-muir-trail-permits) and _The Mercury News_ article titled [**Here’s how to get a coveted reservation to hike the John Muir Trail**](https://www.mercurynews.com/2019/04/22/heres-how-to-get-a-reservation-to-hike-the-john-muir-trail/ "Written by Lisa M. Krieger on April 22, 2019").
 
 ## Usage
 
