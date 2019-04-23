@@ -18,6 +18,32 @@ python hackjohn.py
 ```
 
 The script with print the table of available spaces via stdout.
+An example of the output is:
+
+```
+Spaces available as of 2019-04-22:
+
+      Date                                        Trailhead  Spaces
+2019-09-19  Happy Isles->Sunrise/Merced Lake (pass through)       3
+2019-09-22              Happy Isles->Little Yosemite Valley       5
+2019-09-23              Happy Isles->Little Yosemite Valley       4
+2019-09-28              Happy Isles->Little Yosemite Valley       3
+2019-10-02  Happy Isles->Sunrise/Merced Lake (pass through)       4
+2019-10-03  Happy Isles->Sunrise/Merced Lake (pass through)       4
+2019-10-04  Happy Isles->Sunrise/Merced Lake (pass through)       3
+2019-10-05  Happy Isles->Sunrise/Merced Lake (pass through)       3
+
+According to https://www.nps.gov/yose/planyourvisit/fulltrailheads.htm
+Yosemite Reservations: 209-372-0740 (Monday–Friday 9:00am–4:30pm)
+```
+
+By default, Hackjohn writes the output to the file `hackjohn-output.txt` (as specified by `output_path`).
+To avoid repeated notification, Hackjohn skips Telegram notification if its output matches the pre-existing output.
+
+## Notifications
+
+Hackjohn can send notifications via the [Telegram](https://telegram.org/) messaging app.
+Configure `enable_middleman` and `token` in `hackjohn.py` to use this feature.
 
 ## Environment
 
