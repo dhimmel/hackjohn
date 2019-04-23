@@ -71,8 +71,12 @@ def get_trailhead_df():
     )
     wide_df = wide_df.iloc[:, :6]
 
-    trailhead_df = wide_df.melt(id_vars='Date', var_name='Trailhead', value_name='Spaces')
-    trailhead_df = trailhead_df.dropna()
+    trailhead_df = (
+        wide_df
+        .melt(id_vars='Date', var_name='Trailhead', value_name='Spaces')
+        .dropna()
+        .sort_values(by=['Date'], kind='mergesort')
+    )
     trailhead_df.Spaces = trailhead_df.Spaces.astype(int)
     assert len(trailhead_df) > 0
 
