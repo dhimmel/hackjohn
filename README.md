@@ -97,3 +97,9 @@ Therefore, I added the following lines to my `crontab` configuration (replacing 
 ```
 
 Run `crontab -e` to edit your cron configuration.
+In order to for the cron-scheduled script to run in the proper environment, you must add a shebang pointing to which Python to use.
+For example, the following but substituting your username:
+
+```python
+#!/home/dhimmel/anaconda3/envs/hackjohn/bin/python
+```
