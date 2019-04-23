@@ -11,9 +11,9 @@ This strategy enables securing a soutbound JMT permit after the lottery drawing 
 
 Modify [`hackjohn.py`](hackjohn.py) with the parameters of your permit search.
 To receive [Telegram](https://telegram.org/) notfications, set your `token` for the [MiddleManBot](https://github.com/n1try/telegram-middleman-bot).
-Then simply run the hackjohn Python script in the `hackjohn` conda environment (described below) with:
+Then simply run the hackjohn Python script in the `hackjohn` appropriate environment (described below) with:
 
-```
+```shell
 python hackjohn.py
 ```
 
@@ -27,7 +27,7 @@ The environment can be installed using _either_ Virtual Environments or Conda.
 
 To insall a [virtual environment](https://docs.python.org/3/tutorial/venv.html), run the following:
 
-```
+```shell
 # Create a virtual environment in the env directory
 python3 -m venv env
 
@@ -43,7 +43,7 @@ pip install --requirement requirements.txt
 The [conda](http://conda.pydata.org/docs/) environment for this repository is specified in [`environment.yml`](environment.yml).
 Install this environment with:
 
-```sh
+```shell
 conda env create --file environment.yml
 ```
 

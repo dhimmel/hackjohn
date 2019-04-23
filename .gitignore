@@ -1,5 +1,6 @@
 # hackjohn files
 hackjohn.log
+hackjohn-output.txt
 
 # Python
 __pycache__/

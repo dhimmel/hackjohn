@@ -12,13 +12,14 @@ and spaces are usually snatched within ten minutes.
 Call the reservation number if there's availability at 209-372-0740.
 """
 
+import pathlib
 import re
 
 import requests
 import pandas
 from pkg_resources import parse_version
 
-# Mininum number of available spaces
+# Minimum number of available spaces
 spaces = 2
 
 # Comment out trailheads you'd like to start from
@@ -31,10 +32,18 @@ exclude = [
 ]
 
 # Dates you'd like to start on (inclusive of end date)
-dates = pandas.date_range(start='2018-08-30', end='2018-10-05', freq='D')
+dates = pandas.date_range(start='2019-08-30', end='2019-10-05', freq='D')
 dates
 
-# If the Report Date is before this day, suppress Telegram notification
+# Write output to this file. If the generated output is identical to
+# the existing output at this path, suppress notification. To disable
+# writing any files, set output_path=None as shown below.
+output_path = pathlib.Path('__file__').parent.joinpath('hackjohn-output.txt')
+# output_path = None  # None disables writing to a file
+
+# If the Report Date is before this day, suppress Telegram notification.
+# You probably do not need to change this setting unless you have disabled
+# output_path
 min_report_date = '2019-01-01'
 
 
@@ -69,6 +78,7 @@ def get_trailhead_df():
 
     return response, trailhead_df
 
+
 yose_response, trailhead_df = get_trailhead_df()
 trailhead_df.head(2)
 
@@ -86,7 +96,7 @@ space_df = trailhead_df.query("Date in @dates and Spaces >= @spaces and Trailhea
 space_df
 
 space_str = space_df.to_string(index=False)
-text = f'''Spaces available as of {report_date}
+text = f'''Spaces available as of {report_date}:
 
 {space_str}
 
@@ -94,9 +104,18 @@ According to {yose_response.url}
 Yosemite Reservations: 209-372-0740 (Monday–Friday 9:00am–4:30pm)
 '''
 print(text)
+# Detect if output_path has changed. If so, rewrite output.
+output_has_changed = True
+if output_path:
+    output_path = pathlib.Path(output_path)
+    if output_path.is_file():
+        previous_text = output_path.read_text()
+        output_has_changed = text != previous_text
+    if output_has_changed:
+        output_path.write_text(text)
+print(f'output has changed: {output_has_changed}')
 
-
-## Nofications using MiddlemanBot
+## Notifications using MiddlemanBot
 # Uses https://github.com/n1try/telegram-middleman-bot
 
 # Set enable_middleman to True to receive telegram notification
@@ -113,7 +132,7 @@ payload = {
     'text': text,
     'origin': 'hackjohn',
 }
-if enable_middleman and not space_df.empty and min_report_date <= report_date:
+if enable_middleman and not space_df.empty and output_has_changed and min_report_date <= report_date:
     mmb_response = requests.post(mmb_url, json=payload)
     print('middleman status code', mmb_response.status_code)
     print(mmb_response.text)
