@@ -99,7 +99,7 @@ report_date = report_date.date().isoformat()
 space_df = trailhead_df.query("Date in @dates and Spaces >= @spaces and Trailhead not in @exclude")
 space_df
 
-space_str = space_df.to_string(index=False)
+space_str = 'NO VACANCY' if space_df.empty else space_df.to_string(index=False)
 text = f'''Spaces available as of {report_date}:
 
 {space_str}
