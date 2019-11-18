@@ -144,7 +144,7 @@ if enable_middleman and not space_df.empty and output_has_changed and min_report
 ## Notifications using IFTTT
 
 # Set enable_ifttt to True to receive IFTTT notification
-enable_ifttt = True
+enable_ifttt = False
 event_name = 'hackjohn'
 ifttt_key = 'cJLFuy0CHPBwK0wqndI2g9'
 
