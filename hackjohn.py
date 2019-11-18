@@ -119,6 +119,9 @@ if output_path:
         output_path.write_text(text)
 print(f'output has changed: {output_has_changed}')
 
+# determine whether to notify
+notify = not space_df.empty and output_has_changed and min_report_date <= report_date
+
 ## Notifications using MiddlemanBot
 # Uses https://github.com/n1try/telegram-middleman-bot
 
@@ -136,31 +139,41 @@ payload = {
     'text': text,
     'origin': 'hackjohn',
 }
-if enable_middleman and not space_df.empty and output_has_changed and min_report_date <= report_date:
+if notify and enable_middleman:
     mmb_response = requests.post(mmb_url, json=payload)
     print('middleman status code', mmb_response.status_code)
     print(mmb_response.text)
 
 ## Notifications using IFTTT
 
-# Set enable_ifttt to True to receive IFTTT notification
+# Set enable_ifttt to True and personalize ifttt_key to receive IFTTT notifications
 enable_ifttt = False
 event_name = 'hackjohn'
-ifttt_key = 'cJLFuy0CHPBwK0wqndI2g9'
+ifttt_key = 'replace-with-ifttt-key'
 
-# Create you own IFTTT (https://ifttt.com/create)
-# Select webhooks for this and select receive a web trigger
-# Set event name to match event_name variable above
-# Create a that to respond to the event (IFTTT rich notifications allow click to call options to the reservation line.) You can add 3 values (specified below).
-# Go to https://ifttt.com/maker_webhooks and click on documentation, copy & paste your key into the ifttt_key variable above
+"""
+## IFTTT Setup Instructions
+
+Create you own IFTTT at https://ifttt.com/create.
+Select webhooks for this and select "Receive a web request".
+Set event name to match `event_name` variable above.
+Create a that to respond to the event.
+For example, select "Send a rich notification from the IFTTT app"
+(IFTTT rich notifications allow click to call options to the reservation line).
+You can add 3 values (specified below).
+For example, use `{{Value1}}` for the message template and `tel: {{Value2}}` as link action.
+Go to https://ifttt.com/maker_webhooks and click on documentation,
+copy & paste your key into the `ifttt_key` variable above.
+"""
 
 ifttt_hostname = 'https://maker.ifttt.com'
 ifttt_url = ifttt_hostname + '/trigger/' + event_name + '/with/key/' + ifttt_key
 
-if enable_ifttt and not space_df.empty and output_has_changed and min_report_date <= report_date:
-    report = {}
-    report["value1"] = text
-    report["value2"] = '209-372-0740'
+if notify and enable_ifttt:
+    report = {
+        "value1": text,
+        "value2": '209-372-0740',
+    }
     response = requests.post(ifttt_url, data=report)
     print('ifttt status code', response.status_code)
     print(response.text)
