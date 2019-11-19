@@ -42,8 +42,17 @@ To avoid repeated notification, Hackjohn skips Telegram notification if its outp
 
 ## Notifications
 
-Hackjohn can send notifications via the [Telegram](https://telegram.org/) messaging app.
-Configure `enable_middleman` and `token` in `hackjohn.py` to use this feature.
+Hackjohns supports the following services to provide notifications:
+
+1. **the [Telegram](https://telegram.org/) messaging app.**
+   Configure `enable_middleman` and `token` in [`hackjohn.py`](hackjohn.py) to use this feature.
+
+2. **If This Than That ([IFTTT](https://ifttt.com/)).**
+   To enable IFTTT follow the instructions in `hackjohn.py` to create an IFTTT applet.
+   Configure `enable_ifttt` and `ifttt_key` in `hackjohn.py`.
+   Thanks Markus Neuhoff for [contributing](https://github.com/dhimmel/hackjohn/pull/4) this feature!
+
+Hackjohn can be run without enabling notifications, which is usefull for prototyping and development, but less useful for automated monitoring.
 
 ## Environment
 
