@@ -5,7 +5,7 @@ Vacancies in this table indicate the availability of a southbound John Muir Trai
 available for immediate reservation by calling the Yosemite Wilderness Permit Reservations at [1-209-372-0740](tel:1-209-372-0740).
 This strategy enables securing a soutbound JMT permit after the lottery drawing for a given date.
 
-**Learn more about using hackjohn** and its history of success in the blog post titled [**Introducing the hackjohn bot for southbound John Muir Trail permits**](https://busy.org/@dhimmel/introducing-the-hackjohn-bot-for-southbound-john-muir-trail-permits) and _The Mercury News_ article titled [**Here’s how to get a coveted reservation to hike the John Muir Trail**](https://www.mercurynews.com/2019/04/22/heres-how-to-get-a-reservation-to-hike-the-john-muir-trail/ "Written by Lisa M. Krieger on April 22, 2019").
+**Learn more about using hackjohn** and its history of success in the blog post titled [**Introducing the hackjohn bot for southbound John Muir Trail permits**](https://hive.blog/@dhimmel/introducing-the-hackjohn-bot-for-southbound-john-muir-trail-permits) and _The Mercury News_ article titled [**Here’s how to get a coveted reservation to hike the John Muir Trail**](https://www.mercurynews.com/2019/04/22/heres-how-to-get-a-reservation-to-hike-the-john-muir-trail/ "Written by Lisa M. Krieger on April 22, 2019").
 
 ## Usage
 
@@ -21,20 +21,19 @@ The script with print the table of available spaces via stdout.
 An example of the output is:
 
 ```
-Spaces available as of 2019-04-22:
+Spaces available as of 2020-05-23:
 
-      Date                                        Trailhead  Spaces
-2019-09-19  Happy Isles->Sunrise/Merced Lake (pass through)       3
-2019-09-22              Happy Isles->Little Yosemite Valley       5
-2019-09-23              Happy Isles->Little Yosemite Valley       4
-2019-09-28              Happy Isles->Little Yosemite Valley       3
-2019-10-02  Happy Isles->Sunrise/Merced Lake (pass through)       4
-2019-10-03  Happy Isles->Sunrise/Merced Lake (pass through)       4
-2019-10-04  Happy Isles->Sunrise/Merced Lake (pass through)       3
-2019-10-05  Happy Isles->Sunrise/Merced Lake (pass through)       3
+      Date      Trailhead  Spaces
+2020-09-27   Lyell Canyon       5
+2020-09-28   Lyell Canyon       8
+2020-09-29  Sunrise Lakes       5
+2020-09-29   Lyell Canyon      15
+2020-09-30   Lyell Canyon       7
 
 According to https://www.nps.gov/yose/planyourvisit/fulltrailheads.htm
 Yosemite Reservations: 209-372-0740 (Monday–Friday 9:00am–4:30pm)
+
+output has changed: False
 ```
 
 By default, Hackjohn writes the output to the file `hackjohn-output.txt` (as specified by `output_path`).

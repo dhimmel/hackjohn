@@ -24,15 +24,15 @@ spaces = 2
 
 # Comment out trailheads you'd like to start from
 exclude = [
-    #     'Happy Isles->Little Yosemite Valley',
-    #     'Happy Isles->Sunrise/Merced Lake (pass through)',
-    "Glacier Point->Little Yosemite Valley",
-    "Sunrise Lakes",
-    "Lyell Canyon",
+    # "HI → LYV",
+    # "HI → Sunrise/Merced Lakes (Pass through)",
+    # "Glacier Point → LYV",
+    # "Sunrise Lakes",
+    # "Lyell Canyon",
 ]
 
 # Dates you'd like to start on (inclusive of end date)
-dates = pandas.date_range(start="2019-08-30", end="2019-10-05", freq="D")
+dates = pandas.date_range(start="2020-08-01", end="2020-09-30", freq="D")
 dates
 
 # Write output to this file. If the generated output is identical to
@@ -67,6 +67,7 @@ def get_trailhead_df():
         header=1,
         attrs={"id": "cs_idLayout2"},
         flavor="html5lib",
+        skiprows=1,  # skip report date row with one cell
         parse_dates=["Date"],
     )
     wide_df = wide_df.iloc[:, :6]
