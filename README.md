@@ -55,11 +55,9 @@ Hackjohn can be run without enabling notifications, which is usefull for prototy
 
 ## Environment
 
-The environment can be installed using _either_ Virtual Environments or Conda.
-
-### Virtual Environment
-
-To insall a [virtual environment](https://docs.python.org/3/tutorial/venv.html), run the following:
+The recommend installation method is to create a virtual environment for just Hackjohn.
+This ensures installation does not modify dependencies for other projects.
+To install a [virtual environment](https://docs.python.org/3/tutorial/venv.html), run the following:
 
 ```shell
 # Create a virtual environment in the env directory
@@ -70,18 +68,10 @@ source env/bin/activate
 
 # Install the required dependencies into the virtual env
 pip install --requirement requirements.txt
+
+# Now you can run Hackjohn
+python hackjohn.py
 ```
-
-### Conda
-
-The [conda](http://conda.pydata.org/docs/) environment for this repository is specified in [`environment.yml`](environment.yml).
-Install this environment with:
-
-```shell
-conda env create --file environment.yml
-```
-
-Then use `conda activate hackjohn` and `conda deactivate` to activate or deactivate the environment.
 
 ## Automation
 
@@ -106,8 +96,8 @@ Therefore, I added the following lines to my `crontab` configuration (replacing 
 
 Run `crontab -e` to edit your cron configuration.
 In order to for the cron-scheduled script to run in the proper environment, you must add a shebang pointing to which Python to use.
-For example, the following but substituting your username:
+For example, replace the following with the output of `which python` when you have activated the right environment:
 
 ```python
-#!/home/dhimmel/anaconda3/envs/hackjohn/bin/python
+#!/home/username/path/to/hackjohn/env/bin/python
 ```
