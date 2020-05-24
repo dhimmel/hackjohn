@@ -1,0 +1,17 @@
+name: Hackjohn CI
+on:
+- push
+- pull_request
+jobs:
+  hackjohn:
+    name: Test Python Code
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install Python
+      uses: actions/setup-python@v2
+    - name: Install dependencies
+      run: pip install --requirement requirements.txt
+    - name: Hackjohn
+      run: python hackjohn.py
