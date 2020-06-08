@@ -67,7 +67,9 @@ def get_trailhead_df():
         header=1,
         attrs={"id": "cs_idLayout2"},
         flavor="html5lib",
-        skiprows=1,  # skip report date row with one cell
+        # check table at nps trailheads site for irrelevant leading rows
+        # update skiprows value so first row is actual table header
+        skiprows=0,
         parse_dates=["Date"],
     )
     wide_df = wide_df.iloc[:, :6]
