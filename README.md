@@ -1,3 +1,14 @@
+## Eulogy
+
+As of June 22, 2020, the trailhead report switched to a [new website](https://yosemite.org/planning-your-wilderness-permit/) that forbids automated access.
+Therefore, it is no longer possible to get notifications of trailhead availability.
+More information is available at <https://github.com/dhimmel/hackjohn/issues/9> (solutions welcome).
+
+For over 2 years, Hackjohn helped users save time, and avoid having to repeatedly check a website.
+Thanks everyone who contributed.
+I hope you found this tool helpful.
+And I'm happy Hackjohn introduced several users to coding and Python.
+
 # Bot to monitor for southbound permit spaces on the John Muir Trail
 
 [![Hackjohn CI](https://github.com/dhimmel/hackjohn/workflows/Hackjohn%20CI/badge.svg?branch=master)](https://github.com/dhimmel/hackjohn/actions)
