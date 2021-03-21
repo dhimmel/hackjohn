@@ -1,6 +1,5 @@
-beautifulsoup4
-html5lib
-numpy
-pandas>=0.24
-python-dateutil
 requests
+tenacity
+pytz
+2captcha-python
+twilio
