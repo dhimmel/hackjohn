@@ -16,10 +16,10 @@ and _The Mercury News_ article titled [**Here’s how to get a coveted reservati
 ## Usage
 
 Modify [`hackjohn.py`](hackjohn.py) with the parameters of your permit search.
-Set your tokens for Middleman, IFTTT, and/or Twilio to receive notifications
-(see the Notifications section below for more details). Then simply run the 
-hackjohn Python script in the `hackjohn` appropriate environment (described 
-below) with:
+Add your 2Captcha API key (see the Captcha solving service section) and then 
+set your tokens for Telegram, IFTTT, and/or Twilio to receive notifications 
+(see the Notifications section). Then simply run the hackjohn Python script in 
+the `hackjohn` appropriate environment (see Environment section) with:
 
 ```shell
 python hackjohn.py
