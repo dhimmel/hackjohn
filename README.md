@@ -59,13 +59,14 @@ Feel free to use a different Captcha solving service, but you will need to make 
 
 hackjohn supports the following services to provide notifications:
 
-* **The Telegram messaging app.** Refer to the [webhook2telegram repo](https://github.com/muety/webhook2telegram) for more details.
+* **The Telegram messaging app.**
+Refer to the [webhook2telegram repo](https://github.com/muety/webhook2telegram) for more details.
   1. Download the Telegram app at https://telegram.org. Mobile and desktop apps are available.
   2. Message "\start" to @MiddleManBot. It will send back a token.
   3. In [`hackjohn.py`](hackjohn.py), set `ENABLE_TELEGRAM` to True and set `TELEGRAM_TOKEN` to the token you received in the previous step.
 
-* **If This Then That (IFTTT).** (Thanks Markus Neuhoff for 
-[contributing](https://github.com/dhimmel/hackjohn/pull/4) this feature!)
+* **If This Then That (IFTTT).**
+(Thanks Markus Neuhoff for [contributing](https://github.com/dhimmel/hackjohn/pull/4) this feature!)
   1. Create an applet at https://ifttt.com/create. (You will also need to create an IFTTT account.)
   2. In the "If This" section of your applet, click "Webhooks" and then "Receive a web request". Give it a name (e.g., "hackjohn"). Add this name to the `IFTTT_EVENT_NAME` variable in [`hackjohn.py`](hackjohn.py).
   3. In the "Then That" section of your applet, select the type of notification you would like to receive. For example, "Notifications -> Send a rich notification from the IFTTT app" or "Email -> Send me an email".
