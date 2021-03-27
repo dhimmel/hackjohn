@@ -1,6 +1,7 @@
 """
 Bot to monitor for southbound permit spaces on the John Muir Trail
 Written by Daniel Himmelstein
+Updated for new website in 2021 by Danny Cunningham
 
 Check whether any spaces are available for the
 "Donohue Exit Quota and Trailhead Space Available".
