@@ -29,6 +29,7 @@ from tenacity import (
     wait_fixed,
     retry_if_exception_type
 )
+from twilio.rest import Client
 
 # some variables are set in config.py -- not intended to be modified
 import config
@@ -471,11 +472,6 @@ def send_IFTTT_notification(text: str):
     url = f"{config.IFTTT_HOSTNAME}/trigger/{IFTTT_EVENT_NAME}/with/key/{IFTTT_KEY}"
     r = requests.post(url, data=report)
     r.raise_for_status()
-
-
-# only need the twilio package if we're sending SMS
-if ENABLE_TWILIO:
-    from twilio.rest import Client
 
 
 def send_twilio_notification(
