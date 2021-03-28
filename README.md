@@ -10,9 +10,12 @@ This strategy enables securing a soutbound JMT permit after the lottery drawing 
 
 ## Usage
 
-Modify [`hackjohn.py`](hackjohn.py) with the parameters of your permit search.
-Add your 2Captcha API key (see the Captcha solving service section) and then set your tokens for Telegram, IFTTT, and/or Twilio to receive notifications (see the Notifications section).
-Then simply run the hackjohn Python script in the `hackjohn` appropriate environment (see Environment section) with:
+Follow these steps to run hackjohn:
+
+1. Clone this repository.
+2. Modify [`config.py`](config.py) with with the parameters of your permit search.
+This includes your 2Captcha API key (see the Captcha solving service section) and your tokens for Telegram, IFTTT, and/or Twilio (see the Notifications section).
+3. Then simply run the hackjohn Python script in the `hackjohn` appropriate environment (see Environment section) with:
 
 ```shell
 python hackjohn.py
@@ -45,7 +48,7 @@ As of June 22, 2020, the trailhead report switched to a new website that moved t
 This made it more difficult for bots to access the report. 
 
 hackjohn uses [2Captcha](https://2captcha.com) to solve the Recaptcha and get to the permit report.
-You will need to create a 2Captcha account and upload some funds, then copy your 2Captcha API key into the `CAPTCHA_API_KEY` variable in [`hackjohn.py`](hackjohn.py). 
+You will need to create a 2Captcha account and upload some funds, then copy your 2Captcha API key into the `CAPTCHA_API_KEY` variable in [`config.py`](config.py).
 
 This costs money, but it is very cheap (a few dollars will get you 1000 Recaptchas).
 hackjohn reuses the same Recaptcha authorization as long as it is still valid, so it only calls the 2Captcha service when necessary (currently the authentication lasts about a day, but that is subject to change).
@@ -63,20 +66,20 @@ hackjohn supports the following services to provide notifications:
 Refer to the [webhook2telegram repo](https://github.com/muety/webhook2telegram) for more details.
   1. Download the Telegram app at https://telegram.org. Mobile and desktop apps are available.
   2. Message "\start" to @MiddleManBot. It will send back a token.
-  3. In [`hackjohn.py`](hackjohn.py), set `ENABLE_TELEGRAM` to True and set `TELEGRAM_TOKEN` to the token you received in the previous step.
+  3. In [`config.py`](config.py), set `ENABLE_TELEGRAM` to True and set `TELEGRAM_TOKEN` to the token you received in the previous step.
 
 * **If This Then That (IFTTT).**
 (Thanks Markus Neuhoff for [contributing](https://github.com/dhimmel/hackjohn/pull/4) this feature!)
   1. Create an applet at https://ifttt.com/create. (You will also need to create an IFTTT account.)
-  2. In the "If This" section of your applet, click "Webhooks" and then "Receive a web request". Give it a name (e.g., "hackjohn"). Add this name to the `IFTTT_EVENT_NAME` variable in [`hackjohn.py`](hackjohn.py).
+  2. In the "If This" section of your applet, click "Webhooks" and then "Receive a web request". Give it a name (e.g., "hackjohn"). Add this name to the `IFTTT_EVENT_NAME` variable in [`config.py`](config.py).
   3. In the "Then That" section of your applet, select the type of notification you would like to receive. For example, "Notifications -> Send a rich notification from the IFTTT app" or "Email -> Send me an email".
-  4. Go to https://ifttt.com/maker_webhooks, click on documentation, and copy your key at the top of the screen into the `IFTTT_KEY` variable and set `ENABLE_IFTTT` to True in [`hackjohn.py`](hackjohn.py).
+  4. Go to https://ifttt.com/maker_webhooks, click on documentation, and copy your key at the top of the screen into the `IFTTT_KEY` variable and set `ENABLE_IFTTT` to True in [`config.py`](config.py).
 
 * **SMS text messages with Twilio.**
   1. Create an account at https://www.twilio.com.
-  2. In the "Project Info" section of your Twilio dashboard, copy your Account SID and Auth Token values into the `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables in [`hackjohn.py`](hackjohn.py), respectively.
-  3. Click "Get a trial phone number" in your Twilio dashboard. Twilio will generate a phone number for your account. Copy this phone number into the `TWILIO_PHONE_NUMBER` variable in [`hackjohn.py`](hackjohn.py).
-  4. Set the `TWILIO_TO_PHONE` variable to the phone number you want to send notifications to (i.e., your phone number) and set`ENABLE_TWILIO` to True in [`hackjohn.py`](hackjohn.py).
+  2. In the "Project Info" section of your Twilio dashboard, copy your Account SID and Auth Token values into the `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables in [`config.py`](config.py), respectively.
+  3. Click "Get a trial phone number" in your Twilio dashboard. Twilio will generate a phone number for your account. Copy this phone number into the `TWILIO_PHONE_NUMBER` variable in [`config.py`](config.py).
+  4. Set the `TWILIO_TO_PHONE` variable to the phone number you want to send notifications to (i.e., your phone number) and set`ENABLE_TWILIO` to True in [`config.py`](config.py).
   5. **Note:** It costs a small amount of money to operate your Twilio account (currently $1 per month to maintain your phone number plus $0.0075 per message sent).
   It is often possible to find promos that will add money to your account.
   For example, there is currently a promo code for $50 in free credits in the "Basic Training" section in [Twilio Quest](https://www.twilio.com/quest) (working as of March 2021).

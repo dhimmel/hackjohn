@@ -1,9 +1,60 @@
 """
-MODIFY THIS FILE AT YOUR OWN RISK.
+Set the parameters at the top of this file to control which dates and
+trailheads you are notified for and which types of notifications you receive.
 
-Configuration variables for the hackjohn.py script. You should only make changes
-to these values if you have a good reason and know what you are doing.
+This should be the only file you need to modify. After you fill in the
+parameters in this file, you can run hackjohn.py.
 """
+
+# replace with your 2Captcha API key (required)
+CAPTCHA_API_KEY = "your-2Captcha-api-key"
+
+# customize the dates and trailheads you want to be notified for
+MIN_SPACES = 1  # minimum number of available spaces
+START_DATE = "2021-06-15"  # earliest date you would like to start your hike
+END_DATE = "2021-09-30"    # latest date you would like to start your hike
+NOTIFY_IF_NO_PERMITS = True  # send daily notification even if no permits are found?
+OUTPUT_TIME_ZONE = "US/Pacific"  # what time zone to show in notifications (must be in pytz.all_timezones)
+
+# Comment out trailheads you'd like to start from (don't change the trailhead names)
+EXCLUDE_TRAILHEADS = [
+    # "Happy Isles->Little Yosemite Valley",
+    # "Happy Isles->Sunrise/Merced Lake (pass through)",
+    # "Glacier Point->Little Yosemite Valley",
+    # "Sunrise Lakes",
+    # "Lyell Canyon",
+]
+
+## Telegram notification setup (optional)
+ENABLE_TELEGRAM = False
+TELEGRAM_TOKEN = "replace-with-personal-telegram-token"
+TELEGRAM_FROM_NAME = "hackjohn"
+
+## IFTTT notification setup (optional)
+ENABLE_IFTTT = False
+IFTTT_KEY = "replace-with-personal-IFTTT-key"
+IFTTT_EVENT_NAME = "hackjohn"  # must match the name of the event you created
+
+## Twilio SMS notification setup (optional)
+ENABLE_TWILIO = False
+TWILIO_ACCOUNT_SID = "your-twilio-account-sid"
+TWILIO_AUTH_TOKEN = "your-twilio-auth-token"
+TWILIO_PHONE_NUMBER = "your-twilio-account-phone-number"   # +1xxxxxxxxxx format
+TWILIO_TO_PHONE = "phone-number-to-receive-notifications"  # +1xxxxxxxxxx format
+
+"""
+END OF REQUIRED PARAMETERS
+
+--------------------------------------------------------------------------------
+
+MODIFY THE CODE BELOW AT YOUR OWN RISK.
+
+The values below are used in hackjohn.py, but they are not user specific and
+you do not need to change them. You should only make changes to these values if
+you have a good reason (i.e., the website has changed and hackjohn is broken)
+and know what you are doing.
+"""
+
 import pathlib
 
 # Write output to this file. If the generated output is identical to the

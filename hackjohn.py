@@ -31,49 +31,8 @@ from tenacity import (
 )
 from twilio.rest import Client
 
-# some variables are set in config.py -- not intended to be modified
+# some parameters are set in config.py
 import config
-
-
-######################
-# Set these parameters
-######################
-CAPTCHA_API_KEY = "your-api-key"  # replace with your 2Captcha API key
-MIN_SPACES = 1  # minimum number of available spaces
-START_DATE = "2021-06-15"  # earliest date you would like to start your hike
-END_DATE = "2021-09-30"    # latest date you would like to start your hike
-NOTIFY_IF_NO_PERMITS = True  # send daily notification even if no permits are found?
-OUTPUT_TIME_ZONE = "US/Pacific"  # what time zone to show in notifications (must be in pytz.all_timezones)
-
-# Comment out trailheads you'd like to start from (don't change the trailhead names)
-EXCLUDE_TRAILHEADS = [
-    # "Happy Isles->Little Yosemite Valley",
-    # "Happy Isles->Sunrise/Merced Lake (pass through)",
-    # "Glacier Point->Little Yosemite Valley",
-    # "Sunrise Lakes",
-    # "Lyell Canyon",
-]
-
-## Telegram notification setup (optional)
-ENABLE_TELEGRAM = False
-TELEGRAM_TOKEN = "replace-with-personal-telegram-token"
-TELEGRAM_FROM_NAME = "hackjohn"
-
-## IFTTT notification setup (optional)
-ENABLE_IFTTT = False
-IFTTT_KEY = "replace-with-personal-IFTTT-key"
-IFTTT_EVENT_NAME = "hackjohn"  # must match the name of the event you created
-
-## Twilio SMS notification setup (optional)
-ENABLE_TWILIO = False
-TWILIO_ACCOUNT_SID = "your-twilio-account-sid"
-TWILIO_AUTH_TOKEN = "your-twilio-auth-token"
-TWILIO_PHONE_NUMBER = "your-twilio-account-phone-number"   # +1xxxxxxxxxx format
-TWILIO_TO_PHONE = "phone-number-to-receive-notifications"  # +1xxxxxxxxxx format
-
-###################
-# end of parameters
-###################
 
 
 def main():
@@ -88,11 +47,11 @@ def main():
     # send notifications as appropriate
     notify = decide_whether_to_notify(text, permits, timestamp)
     if notify:
-        if ENABLE_TELEGRAM:
+        if config.ENABLE_TELEGRAM:
             send_telegram_notification(text)
-        if ENABLE_IFTTT:
+        if config.ENABLE_IFTTT:
             send_IFTTT_notification(text)
-        if ENABLE_TWILIO:
+        if config.ENABLE_TWILIO:
             send_twilio_notification(text)
 
     print("")
@@ -197,7 +156,7 @@ def get_json_from_api(api_url: str) -> dict:
 
     else:
         print("did not find saved cookies -- getting new session...")
-        s = get_authorized_session(api_key=CAPTCHA_API_KEY)
+        s = get_authorized_session(api_key=config.CAPTCHA_API_KEY)
 
     # pull the data (should be near instantaneous, but sometimes there are
     # timeout errors which go away upon retrying)
@@ -313,7 +272,7 @@ def find_available_permits(jmt_report: dict, timestamp: datetime, trailheads: di
         for trailhead_id in permit_data:
             if trailhead_id in ["d01", "d02"]:
                 continue  # these are exit quotas, not real trailheads
-            if trailheads[trailhead_id]["wpsName"] in EXCLUDE_TRAILHEADS:
+            if trailheads[trailhead_id]["wpsName"] in config.EXCLUDE_TRAILHEADS:
                 continue
 
             quota = trailheads[trailhead_id]["quota"]
@@ -329,7 +288,7 @@ def find_available_permits(jmt_report: dict, timestamp: datetime, trailheads: di
             available = min(trailhead_available, dh_available)
             available = max(available, 0)
 
-            if available >= max(MIN_SPACES, 1):
+            if available >= max(config.MIN_SPACES, 1):
                 if date not in available_permits:
                     available_permits[date] = {}
                 available_permits[date][trailhead_id] = available
@@ -365,8 +324,8 @@ def get_start_end_dates(jmt_report: dict, timestamp: datetime) -> Tuple[str, str
     max_reserve_date = (report_date + timedelta(days=config.MAX_RESERVE_DAYS)).strftime("%Y-%m-%d")
     open_date = f"{report_date.year}-{config.OPEN_DATE}"
     close_date = f"{report_date.year}-{config.CLOSE_DATE}"
-    start_date = max(START_DATE, min_found_date, min_reserve_date, open_date)
-    end_date = min(END_DATE, max_found_date, max_reserve_date, close_date)
+    start_date = max(config.START_DATE, min_found_date, min_reserve_date, open_date)
+    end_date = min(config.END_DATE, max_found_date, max_reserve_date, close_date)
     return start_date, end_date
 
 
@@ -376,7 +335,7 @@ def create_text_report(timestamp: datetime, available_permit_dict: dict, trailhe
     readable trailhead names. This is the text that will be written to the
     output file and sent in notifications.
     """
-    out_tz = pytz.timezone(OUTPUT_TIME_ZONE)
+    out_tz = pytz.timezone(config.OUTPUT_TIME_ZONE)
     timestamp_str = timestamp.astimezone(out_tz).strftime("%Y-%m-%d %-I:%M:%S %p %Z")
     update_str = f"Report last updated {timestamp_str}.\n"
     if len(available_permit_dict) == 0:
@@ -422,7 +381,7 @@ def decide_whether_to_notify(text: str, permits: dict, timestamp: datetime) -> b
 
     # determine whether to notify
     notify = (
-        ((len(permits) > 0) or NOTIFY_IF_NO_PERMITS)
+        ((len(permits) > 0) or config.NOTIFY_IF_NO_PERMITS)
         and output_has_changed
         and (config.MIN_REPORT_DATE <= timestamp.strftime("Y-%m-%d"))
     )
@@ -449,9 +408,9 @@ def send_telegram_notification(text: str):
     TELEGRAM_FROM_NAME parameters at the top of this script.
     """
     payload = {
-        "recipient_token": TELEGRAM_TOKEN,
+        "recipient_token": config.TELEGRAM_TOKEN,
         "text": text,
-        "origin": TELEGRAM_FROM_NAME,
+        "origin": config.TELEGRAM_FROM_NAME,
         "options": {
             "disable_link_previews": True
         },
@@ -469,14 +428,14 @@ def send_IFTTT_notification(text: str):
         "value1": text.replace("\n", "<br />"),
         "value2": config.PERMIT_OFFICE_PHONE,
     }
-    url = f"{config.IFTTT_HOSTNAME}/trigger/{IFTTT_EVENT_NAME}/with/key/{IFTTT_KEY}"
+    url = f"{config.IFTTT_HOSTNAME}/trigger/{config.IFTTT_EVENT_NAME}/with/key/{config.IFTTT_KEY}"
     r = requests.post(url, data=report)
     r.raise_for_status()
 
 
 def send_twilio_notification(
         text: str,
-        from_phone: str = TWILIO_PHONE_NUMBER,
+        from_phone: str = config.TWILIO_PHONE_NUMBER,
         to_phone: Union[str, List[str]] = None,
 ):
     """
@@ -489,10 +448,10 @@ def send_twilio_notification(
     :param to_phone: phone number(s) to receive message
     """
     # send SMS message(s)
-    to_phone = to_phone or TWILIO_TO_PHONE
+    to_phone = to_phone or config.TWILIO_TO_PHONE
     to_phone = _force_to_list(to_phone)
     from_phone = _parse_phone_number(from_phone)
-    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    client = Client(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN)
     for x in to_phone:
         client.messages.create(
             body=text,
