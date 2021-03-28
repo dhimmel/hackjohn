@@ -1,6 +1,6 @@
 # Bot to monitor for southbound permit spaces on the John Muir Trail
 
-[![Hackjohn CI](https://github.com/dhimmel/hackjohn/workflows/Hackjohn%20CI/badge.svg?branch=master)](https://github.com/dhimmel/hackjohn/actions)
+[![Hackjohn CI](https://github.com/dhimmel/hackjohn/workflows/Hackjohn%20CI/badge.svg?branch=main)](https://github.com/dhimmel/hackjohn/actions)
 
 This repository contains a Python script for monitoring Yosemite's [permit availability report](https://yosemite.org/planning-your-wilderness-permit/).
 Vacancies in this table indicate the availability of a southbound John Muir Trail permit, available for immediate reservation by filling out the online [permit request form](https://yosemite.org/yosemite-wilderness-permit-request-form/).
