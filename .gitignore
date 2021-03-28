@@ -1,6 +1,7 @@
 # hackjohn files
 hackjohn.log
 hackjohn-output.txt
+.cookies.pickle
 
 # Python
 __pycache__/
