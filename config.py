@@ -55,6 +55,7 @@ you have a good reason (i.e., the website has changed and hackjohn is broken)
 and know what you are doing.
 """
 
+import os
 import pathlib
 
 # Write output to this file. If the generated output is identical to the
@@ -75,6 +76,9 @@ RECAPTCHA_REQUEST_URL = "https://yosemite.org/wp-content/plugins/wildtrails/capt
 # how many times to retry recaptcha if there is an exception, and how long between tries
 MAX_RETRY_ATTEMPTS = 5
 RECAPTCHA_RETRY_INTERVAL = 15  # in seconds
+
+# override CAPTCHA_API_KEY with environment variable if set (used by CI)
+CAPTCHA_API_KEY = os.environ.get("HACKJOHN_CAPTCHA_API_KEY") or CAPTCHA_API_KEY
 
 # save cookies to this file so they can be reused if still valid
 COOKIE_FILE = pathlib.Path("__file__").parent.joinpath(".cookies.pickle")

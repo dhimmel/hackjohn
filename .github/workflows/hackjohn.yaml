@@ -2,9 +2,9 @@ name: Hackjohn CI
 on:
   push:
   pull_request:
-#   schedule:
-#   # can edit at https://crontab.guru/#0_9_*_*_1
-#   - cron: '0 9 * * 1'
+  schedule:
+  # can edit at https://crontab.guru/#0_9_*_*_1
+  - cron: '0 9 * * 1'
 jobs:
   hackjohn:
     name: Hackjohnpy
@@ -17,4 +17,6 @@ jobs:
     - name: Install dependencies
       run: pip install --requirement requirements.txt
     - name: Hackjohn
+      env:
+        HACKJOHN_CAPTCHA_API_KEY: ${{ secrets.CAPTCHA_API_KEY }}
       run: python hackjohn.py
